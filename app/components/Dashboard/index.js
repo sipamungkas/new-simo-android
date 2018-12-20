@@ -18,7 +18,7 @@ export default class Dashboard extends Component {
       <ScrollView>
           <Card style={{marginVertical: 10}}>
               <Card.Content>
-                  <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu ruangan</Title>
+                  <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan</Title>
                   <Text style={{alignSelf:'flex-end'}}>23-12-2018</Text><Text style={{alignSelf:'flex-start'}}>30 derajat celcius</Text>
               </Card.Content>
           </Card>

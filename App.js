@@ -11,6 +11,8 @@ import { StyleSheet, Text, View} from 'react-native';
 import Login from './app/components/Login';
 import Register from './app/components/Register';
 import Dashboard from './app/components/Dashboard';
+import Suhu from './app/components/Suhu';
+import Akun from './app/components/Akun';
 
 
 
