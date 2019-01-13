@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "1092543241052",
+    "firebase_url": "https://websocket-dev.firebaseio.com",
+    "project_id": "websocket-dev",
+    "storage_bucket": "websocket-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092543241052:android:0940b079b08abcde",
+        "android_client_info": {
+          "package_name": "com.example.eins.monitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092543241052-pq5fqaouh7os4g8i9gmn4v3i59jiiapm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbOg-VIae6G_qXX_omIBWxaFDwMTXZUAc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092543241052:android:00f3352f2c95275c",
+        "android_client_info": {
+          "package_name": "com.simo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092543241052-pq5fqaouh7os4g8i9gmn4v3i59jiiapm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbOg-VIae6G_qXX_omIBWxaFDwMTXZUAc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
