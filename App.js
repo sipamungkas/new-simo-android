@@ -11,8 +11,13 @@ import { StyleSheet, Text, View} from 'react-native';
 import Login from './app/components/Login';
 import Register from './app/components/Register';
 import Dashboard from './app/components/Dashboard';
+import Aktifitas from './app/components/Aktifitas';
 import Suhu from './app/components/Suhu';
+import Asap from './app/components/Asap';
+import Cahaya from './app/components/Cahaya';
+import Arus from './app/components/Arus';
 import Akun from './app/components/Akun';
+import Splash from './app/components/Splash';
 import {createAppContainer, createSwitchNavigator, createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator, createMaterialBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-ionicons';
 import Iconf from 'react-native-vector-icons/FontAwesome5';
@@ -29,6 +34,9 @@ export default App;
 
 
 const AppStackNavigator = createStackNavigator({
+  Splash:{
+    screen:Splash
+  },
   Login:{
     screen:Login
   },
@@ -42,23 +50,23 @@ const AppStackNavigator = createStackNavigator({
 
 const RiwayatTopNavigator = createMaterialTopTabNavigator({
   Aktifitas:{
-    screen: Suhu,
+    screen: Aktifitas,
     navigationOptions:{
       tabBarIcon: ({tintColor})=><Iconf name="running" color={tintColor} size={20}/>
     }
     
   },Arus:{
-    screen: Suhu,
+    screen: Arus,
     navigationOptions:{
       tabBarIcon: ({tintColor})=><Iconf name="bolt" color={tintColor} size={20}/>
     }
   },Asap:{
-    screen: Suhu,
+    screen: Asap,
     navigationOptions:{
       tabBarIcon: ({tintColor})=><Iconf name="fire" color={tintColor} size={20}/>
     }
   },Cahaya:{
-    screen: Suhu,
+    screen: Cahaya,
     navigationOptions:{
       tabBarIcon: ({tintColor})=><Iconf name="lightbulb" color={tintColor} size={20}/>
     }
@@ -126,7 +134,7 @@ const DashboardStackNavigator = createStackNavigator({
 
 const AppSwitchNavigator = createSwitchNavigator({
   Login:AppStackNavigator,
-  Dashboard:AppBottomNavigator
+  Dashboard:DashboardStackNavigator
 })
 
 const AppContainer = createAppContainer( AppSwitchNavigator );
