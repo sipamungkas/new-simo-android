@@ -21,11 +21,14 @@ import Splash from './app/components/Splash';
 import {createAppContainer, createSwitchNavigator, createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator, createMaterialBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-ionicons';
 import Iconf from 'react-native-vector-icons/FontAwesome5';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 class App extends Component {
     render() {
     return (
+      <PaperProvider>
       <AppContainer />
+      </PaperProvider>
     );
   }
 }
