@@ -11,21 +11,51 @@ export default class Cahaya extends Component {
     this.state = {
       data:[],
       loading: true,
-      today:new Date()
+      today:new Date(),
+      key: "",
+      keyReference:null,
+      endPoint: 10
     };
   }
 
-  componentDidMount(){
-    let newData = [];
-    timezone = new Date().getTimezoneOffset();
-    const ref = firebase.database().ref("data/");
-    ref.child("ldr").orderByChild("time").startAt("2019-01-19 00:00:00").endAt("2019-01-19 23:59:59").on("value", (snapshot)=>snapshot.forEach((doc)=>
-    {
-      newData.unshift(doc.val());
-      this.setState({data:newData, loading:false});
-    }));
+  firebaseFetch = () =>{
+    let oldData = this.state.data;
+    let referenceToOldestKey = this.state.keyReference;
+    if (referenceToOldestKey==null) {
+      const ref = firebase.database().ref("data/");
+      ref.child("ldr").orderByKey().limitToLast(15)
+      .once("value").then((snapshot)=>{
+        let arrayOfKeys = Object.keys(snapshot.val())
+         .sort()
+         .reverse();
+      let results = arrayOfKeys
+         .map((key) => snapshot.val()[key]);
+      referenceToOldestKey = arrayOfKeys[arrayOfKeys.length-1];
+      this.setState({data:results,keyReference:referenceToOldestKey,loading:false})
+      }).catch((error)=>alert(error.code));  
+    }else{
+      const ref = firebase.database().ref("data/");
+      ref.child("pir").orderByKey().endAt(referenceToOldestKey)
+      .limitToLast(15)
+      .once("value").then((snapshot)=>{
+        let arrayOfKeys = Object.keys(snapshot.val())
+         .sort()
+         .reverse()
+         .slice(1);
+      let results = arrayOfKeys
+         .map((key) => snapshot.val()[key]);
+      
+      referenceToOldestKey = arrayOfKeys[arrayOfKeys.length-1];
+      this.setState({data:this.state.data.concat(results),keyReference:referenceToOldestKey,loading:false})
+      }).catch((error)=>alert("Terjadi Kesalahan"));  
+    }
     
-    
+  }
+  
+
+  
+  componentDidMount(){  
+    this.firebaseFetch()
   }
   render() {
     const {viewContainerMargin, isiCardContent} = style
@@ -38,25 +68,25 @@ export default class Cahaya extends Component {
     }
     return(
       <View style={viewContainerMargin}>
-      <ScrollView
-      contentContainerStyle={{flexDirection:"row",flexGrow:1}}
-      >
+      
+      
       <FlatList
-          scrollEnabled={false}
+          
           data={this.state.data}
+          onEndReachedThreshold={0.5}
+          onEndReached={this.firebaseFetch}
+          
           renderItem={({item}) => 
           <Card>
             <Card.Content style={{flex:1}}>
-                <Text >Tanggal update {item.time}</Text>
-                <Text >Kondisi Ruang : {item.value}</Text>
+                <Text style={{alignSelf: "flex-end"}}>{item.time}</Text>
+                <Text style={{alignSelf: "flex-start"}}>{item.value}</Text>
                 
             </Card.Content>
           </Card>
           }
           keyExtractor={(item,index)=>index.toString()}
         />
-        </ScrollView>
-        
         </View>
     );
     

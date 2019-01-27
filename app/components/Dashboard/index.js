@@ -35,31 +35,36 @@ export default class Dashboard extends Component {
     return (
       <View style={viewContainerMargin}>
       <ScrollView>
-          <Card style={{marginVertical: 3}}>
+          <Card style={{marginVertical: 3}}
+          onPress={()=>this.props.navigation.navigate("Suhu")}>
               <Card.Content>
                   <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan</Title>
                   <Text style={{alignSelf:'flex-end'}}>{this.state.temperature.time}</Text><Text style={{alignSelf:'flex-start'}}>{this.state.temperature.value}</Text>
               </Card.Content>
           </Card>
-          <Card style={{marginVertical: 3}}>
+          <Card style={{marginVertical: 3}}
+          onPress={()=>this.props.navigation.navigate("Asap")}>
               <Card.Content>
                   <Title> <Icon name="fire" size={20} color="#900" /> Asap</Title>
                   <Text style={{alignSelf:'flex-end'}}>{this.state.smoke.time}</Text><Text style={{alignSelf:'flex-start'}}>{this.state.smoke.value}</Text>
               </Card.Content>
           </Card>
-          <Card style={{marginVertical: 3}}>
+          <Card style={{marginVertical: 3}}
+          onPress={()=>this.props.navigation.navigate("Cahaya")}>
               <Card.Content>
                   <Title> <Icon name="lightbulb" size={20} color="#900" /> Cahaya</Title>
                   <Text style={{alignSelf:'flex-end'}}>{this.state.ldr.time}</Text><Text style={{alignSelf:'flex-start'}}>{this.state.ldr.value}</Text>
               </Card.Content>
           </Card>
-          <Card style={{marginVertical: 3}}>
+          <Card style={{marginVertical: 3}}
+          onPress={()=>this.props.navigation.navigate("Aktifitas")}>
               <Card.Content>
                   <Title> <Icon name="running" size={20} color="#900" /> Aktifitas</Title>
                   <Text style={{alignSelf:'flex-end'}}>{this.state.pir.time}</Text><Text style={{alignSelf:'flex-start'}}>{this.state.pir.value}</Text>
               </Card.Content>
           </Card>
-          <Card style={{marginVertical: 3}}>
+          <Card style={{marginVertical: 3}}
+          onPress={()=>this.props.navigation.navigate("Cahaya")}>
               <Card.Content>
                   <Title> <Icon name="bolt" size={20} color="#900" /> Arus</Title>
                   <Text style={{alignSelf:'flex-end'}}>{this.state.current.time}</Text><Text style={{alignSelf:'flex-start'}}>{this.state.current.value}</Text>

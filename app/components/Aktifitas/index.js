@@ -51,18 +51,6 @@ export default class Aktifitas extends Component {
     }
     
   }
-  firebaseFetch2 = () =>{
-    let newData2 = this.state.data;
-    const ref = firebase.database().ref("data/");
-    ref.child("pir").orderByKey().limitToLast(6).endAt(this.state.key)
-    .on("value", (snapshot)=>snapshot.forEach((doc)=>
-    {
-      newData2.unshift(doc.val());
-      this.setState({data:newData2, loading:false});
-      key = doc.key;
-      console.warn(newData2)
-    }));
-  }
 
   
   componentDidMount(){  
@@ -98,8 +86,6 @@ export default class Aktifitas extends Component {
           }
           keyExtractor={(item,index)=>index.toString()}
         />
-      
-        {console.warn(this.state.data)}
         </View>
     );
     
