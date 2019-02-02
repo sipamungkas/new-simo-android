@@ -18,6 +18,7 @@ import Cahaya from './app/components/Cahaya';
 import Arus from './app/components/Arus';
 import Akun from './app/components/Akun';
 import Splash from './app/components/Splash';
+import DateRangePickerTest from './app/components/DateRangePickerTest';
 import {createAppContainer, createSwitchNavigator, createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator, createMaterialBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-ionicons';
 import Iconf from 'react-native-vector-icons/FontAwesome5';
@@ -94,7 +95,7 @@ const RiwayatTopNavigator = createMaterialTopTabNavigator({
 
 const AppBottomNavigator = createBottomTabNavigator({
   Dashboard:{
-    screen: Dashboard,
+    screen: DateRangePickerTest,
     navigationOptions:{
       tabBarLabel: "Dashboard",
       tabBarIcon: ({tintColor})=><Icon name="home" color={tintColor}/>
