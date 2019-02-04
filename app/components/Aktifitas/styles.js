@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     viewContainerMargin:{
         flex: 1,
-        margin:5,
+        margin:2,
         
     },
     heading:{

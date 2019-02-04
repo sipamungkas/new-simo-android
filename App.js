@@ -7,7 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import {AsyncStorage, Alert,StyleSheet, Text, View} from 'react-native';
+import firebase from 'react-native-firebase';
 import Login from './app/components/Login';
 import Register from './app/components/Register';
 import Dashboard from './app/components/Dashboard';
@@ -18,13 +19,47 @@ import Cahaya from './app/components/Cahaya';
 import Arus from './app/components/Arus';
 import Akun from './app/components/Akun';
 import Splash from './app/components/Splash';
-import DateRangePickerTest from './app/components/DateRangePickerTest';
+// import DateRangePickerTest from './app/components/DateRangePickerTest';
 import {createAppContainer, createSwitchNavigator, createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator, createMaterialBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-ionicons';
 import Iconf from 'react-native-vector-icons/FontAwesome5';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 class App extends Component {
+  async componentDidMount() {
+    this.checkPermission();
+    firebase.messaging().subscribeToTopic("simo-client-android");
+  }
+
+  async checkPermission() {
+    const enabled = await firebase.messaging().hasPermission();
+    if (enabled) {
+        this.getToken();
+    } else {
+        this.requestPermission();
+    }
+  }
+  async getToken() {
+    let fcmToken = await AsyncStorage.getItem('fcmTokem');
+    if (!fcmToken) {
+        fcmToken = await firebase.messaging().getToken();
+        if (fcmToken) {
+            // user has a device token
+            await AsyncStorage.setItem('fcmToken', fcmToken);
+        }
+    }
+  }
+  async requestPermission() {
+    try {
+        await firebase.messaging().requestPermission();
+        // User has authorised
+        this.getToken();
+    } catch (error) {
+        // User has rejected permissions
+        console.warn('permission rejected');
+    }
+  }
+
     render() {
     return (
       <PaperProvider>
@@ -95,7 +130,7 @@ const RiwayatTopNavigator = createMaterialTopTabNavigator({
 
 const AppBottomNavigator = createBottomTabNavigator({
   Dashboard:{
-    screen: DateRangePickerTest,
+    screen: Dashboard,
     navigationOptions:{
       tabBarLabel: "Dashboard",
       tabBarIcon: ({tintColor})=><Icon name="home" color={tintColor}/>

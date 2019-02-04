@@ -1,80 +1,108 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-import { Card } from 'react-native-paper';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View} from 'react-native';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import {Button, Card} from 'react-native-paper';
 import firebase from 'react-native-firebase';
-import style from './styles';
-import { ScrollView, Directions } from 'react-native-gesture-handler';
+
+formatDate = (date) => {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
 
 export default class Aktifitas extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:[],
-      loading: true,
-      today:new Date(),
-      key: "",
-      keyReference:null,
-      endPoint: 10
+      isDateTimePickerVisible: false,
+      startDate: formatDate(new Date().toLocaleString()),
+      endDate: formatDate(new Date().toLocaleString()),
+      startDateTimePickerVisible:false,
+      endDateTimePickerVisible:false,
+      data:null,
+      timeReference:null,
     };
   }
+  
+  // Funsgi Date Time Picker
+    showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
 
-  firebaseFetch = () =>{
-    let oldData = this.state.data;
-    let referenceToOldestKey = this.state.keyReference;
-    if (referenceToOldestKey==null) {
+    showEndDateTimePicker = () => this.setState({ endDateTimePickerVisible: true });
+
+    hideStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: false });
+
+    hideEndDateTimePicker = () => this.setState({ endDateTimePickerVisible: false });
+
+    handleStartDatePicked = (date) => {
+        this.setState({startDate:formatDate(date.toLocaleString())});
+        this.hideStartDateTimePicker();
+    };
+
+    handleEndDatePicked = (date) => {
+      if(formatDate(date.toLocaleString())>=this.state.startDate){
+        this.setState({endDate:formatDate(date.toLocaleString())});
+        this.hideEndDateTimePicker();  
+      }else{
+        alert("Tanggal Harus Lebih besar dari Tanggal Awal");
+        this.hideEndDateTimePicker();  
+      }        
+    };
+
+    saringHandler =()=>{
+      const startDate = this.state.startDate + " 00:00:00";
+      const endDate = this.state.endDate + " 23:59:59";
+      this.setState({data:null,loading:true, timeReference:null});
       const ref = firebase.database().ref("data/");
-      ref.child("pir").orderByKey().limitToLast(15)
+      ref.child("pir").orderByChild("time").startAt(startDate).endAt(endDate)
       .once("value").then((snapshot)=>{
         let arrayOfKeys = Object.keys(snapshot.val())
          .sort()
          .reverse();
       let results = arrayOfKeys
          .map((key) => snapshot.val()[key]);
-      referenceToOldestKey = arrayOfKeys[arrayOfKeys.length-1];
-      this.setState({data:results,keyReference:referenceToOldestKey,loading:false})
-      }).catch((error)=>alert(error.code));  
-    }else{
-      const ref = firebase.database().ref("data/");
-      ref.child("pir").orderByKey().endAt(referenceToOldestKey)
-      .limitToLast(15)
-      .once("value").then((snapshot)=>{
-        let arrayOfKeys = Object.keys(snapshot.val())
-         .sort()
-         .reverse()
-         .slice(1);
-      let results = arrayOfKeys
-         .map((key) => snapshot.val()[key]);
+      referenceToOldestTime = snapshot.val()[arrayOfKeys[arrayOfKeys.length-1]].time;
+      this.setState({data:results,timeReference:referenceToOldestTime,loading:false})
+      }).catch((error)=>alert(error.code));
       
-      referenceToOldestKey = arrayOfKeys[arrayOfKeys.length-1];
-      this.setState({data:this.state.data.concat(results),keyReference:referenceToOldestKey,loading:false})
-      }).catch((error)=>alert("Terjadi Kesalahan"));  
     }
-    
-  }
 
-  
-  componentDidMount(){  
-    this.firebaseFetch()
-  }
+
   render() {
-    const {viewContainerMargin, isiCardContent} = style
-    if(this.state.loading){
-      return (
-        <View style={viewContainerMargin}>
-        <ActivityIndicator size="large"/>
-        </View>
-      );
-    }
-    return(
-      <View style={viewContainerMargin}>
-      
-      
-      <FlatList
-          
-          data={this.state.data}
-          onEndReachedThreshold={0.5}
-          onEndReached={this.firebaseFetch}
-          
+    return (
+      <View style={{flex:1,flexDirection:"column"}}>
+        <View style={{flex: 1, flexDirection:"row", justifyContent:"center", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap",marginLeft:5,marginRight:5}}> 
+        <TouchableOpacity onPress={this.showStartDateTimePicker}>
+        <Text>Dari: {this.state.startDate} </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={this.showEndDateTimePicker}>
+        <Text>Hingga: {this.state.endDate}</Text>
+        </TouchableOpacity>
+
+        <Button mode="contained" color="#900" onPress={this.saringHandler}>Tampilkan</Button>
+
+        <DateTimePicker
+        isVisible={this.state.startDateTimePickerVisible}
+        onConfirm={this.handleStartDatePicked}
+        onCancel={this.hideStartDateTimePicker}
+        />
+        <DateTimePicker
+        isVisible={this.state.endDateTimePickerVisible}
+        onConfirm={this.handleEndDatePicked}
+        onCancel={this.hideEndDateTimePicker}
+        />
+    </View>
+        <View style={{flex:9}}>
+        {this.state.loading && <ActivityIndicator size="large"/>}
+        {this.state.data &&  
+        <FlatList
+          data={this.state.data}        
           renderItem={({item}) => 
           <Card>
             <Card.Content style={{flex:1}}>
@@ -85,9 +113,10 @@ export default class Aktifitas extends Component {
           </Card>
           }
           keyExtractor={(item,index)=>index.toString()}
-        />
+        />}
         </View>
+        
+      </View>
     );
-    
   }
 }
