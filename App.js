@@ -171,12 +171,19 @@ const AppBottomNavigator = createBottomTabNavigator({
   })
 
 const DashboardStackNavigator = createStackNavigator({
-  Dashboard: AppBottomNavigator
+  Dashboard: AppBottomNavigator,
+  Chart: {
+    screen: Charts,
+    navigationOptions: {
+      headerTitle: 'Grafik'
+    }
+  }
+
 })
 
 const AppSwitchNavigator = createSwitchNavigator({
   Login: AppStackNavigator,
-  Dashboard: Charts
+  Dashboard: DashboardStackNavigator
 })
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
