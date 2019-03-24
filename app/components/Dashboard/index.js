@@ -40,7 +40,7 @@ export default class Dashboard extends Component {
           <Card style={{ marginVertical: 3 }}
             onPress={() => this.props.navigation.navigate("Suhu")}>
             <Card.Content>
-              <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan {parseInt(this.state.temperature.value) > 32 ? <Icon name="exclamation-triangle" color="red" /> : null}</Title>
+              <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan {parseInt(this.state.temperature.value) > 30 ? <Icon name="exclamation-triangle" color="red" /> : null}</Title>
               <Text style={{ alignSelf: 'flex-end' }}>{this.state.temperature.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.temperature.value} °C {parseInt(this.state.temperature.value) > 31 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}</Text>
             </Card.Content>
           </Card>
@@ -48,7 +48,7 @@ export default class Dashboard extends Component {
             onPress={() => this.props.navigation.navigate("Asap")}>
             <Card.Content>
               <Title> <Icon name="fire" size={20} color="#900" /> Asap</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.smoke.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.smoke.value > 200 ? "Bahaya" : "Normal"} </Text>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.smoke.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.smoke.value > 403 ? "Bahaya" : "Normal"} </Text>
 
             </Card.Content>
           </Card>

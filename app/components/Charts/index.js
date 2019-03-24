@@ -40,6 +40,11 @@ export default class Charts extends Component {
       timeReference: null,
     };
   }
+  // dynamic button title stacknav
+  static navigationOptions = {
+    title: "Suhu",
+  };
+
 
   // Funsgi Date Time Picker
   showStartDateTimePicker = () => this.setState({ startDateTimePickerVisible: true });
@@ -57,6 +62,7 @@ export default class Charts extends Component {
 
 
   saringHandler = () => {
+    this.props.navigation.setParams({ title: this.state.sensor });
     const startDate = this.state.startDate + " 00:00:00";
     const endDate = this.state.startDate + " 23:59:59";
     this.setState({ data: null, loading: true, timeReference: null });
@@ -88,7 +94,7 @@ export default class Charts extends Component {
         });
         // console.warn(labelTime.length, labelSuhu.length);
         this.setState({ data: results, labelTime: labelTime, labelData: labelSuhu, loading: false })
-      }).catch((error) => alert(error));
+      }).catch((error) => alert("Terjadi Kesalahan, silakan periksa tanggal dan koneksi internet anda"));
 
   }
 
@@ -105,15 +111,16 @@ export default class Charts extends Component {
     }
     const screenWidth = Dimensions.get('window').width
     const chartConfig = {
-      backgroundGradientFrom: '#1E2923',
-      backgroundGradientTo: '#08130D',
-      color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+      backgroundGradientFrom: '#f8f8f8',
+      backgroundGradientTo: '#f8f8f8',
+      color: (opacity = 1) => `rgba(27, 27, 27, ${opacity})`,
       strokeWidth: 2 // optional, default 3
 
     }
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
         <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginLeft: 5, marginRight: 5 }}>
+          <Text style={{ color: "black" }}>Tanggal:  </Text>
           <TouchableOpacity onPress={this.showStartDateTimePicker}>
             <Text style={{ color: "black" }}>{this.state.startDate} </Text>
           </TouchableOpacity>

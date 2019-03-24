@@ -110,8 +110,8 @@ export default class Asap extends Component {
                   <Card.Content style={{ flex: 1, marginVertical: 3 }}>
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginLeft: 5, marginRight: 5 }}>
                       <View style={{ flex: 1, flexDirection: 'column' }}><Text style={{ alignSelf: "flex-start" }}>Tanggal {item.time}</Text>
-                        <Text style={{ alignSelf: "flex-start" }}>Asap: {item.value > 200 ? "Bahaya" : "Normal"}</Text></View>
-                      {parseInt(item.value) > 200 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}
+                        <Text style={{ alignSelf: "flex-start" }}>Asap: {item.value > 430 ? "Bahaya" : "Normal"}</Text></View>
+                      {parseInt(item.value) > 430 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}
                     </View>
                   </Card.Content>
                 </Card>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import { Button, Card } from 'react-native-paper';
+import { Button, Card, Divider } from 'react-native-paper';
 import firebase from 'react-native-firebase';
 
 formatDate = (date) => {
@@ -16,7 +17,7 @@ formatDate = (date) => {
   return [year, month, day].join('-');
 }
 
-export default class Arus extends Component {
+export default class Suhu extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -104,11 +105,14 @@ export default class Arus extends Component {
             <FlatList
               data={this.state.data}
               renderItem={({ item }) =>
-                <Card>
-                  <Card.Content style={{ flex: 1 }}>
-                    <Text style={{ alignSelf: "flex-end" }}>{item.time}</Text>
-                    <Text style={{ alignSelf: "flex-start" }}>{item.value > 507 ? "Aktif" : "Tidak Aktif"}</Text>
 
+                <Card>
+                  <Divider />
+                  <Card.Content style={{ flex: 1, marginVertical: 3 }}>
+                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginLeft: 5, marginRight: 5 }}>
+                      <View style={{ flex: 1, flexDirection: 'column' }}><Text style={{ alignSelf: "flex-start" }}>Tanggal {item.time}</Text>
+                        <Text style={{ alignSelf: "flex-start" }}>Arus: {item.value} A</Text></View>
+                    </View>
                   </Card.Content>
                 </Card>
               }
