@@ -131,7 +131,7 @@ export default class Charts extends Component {
               this.setState({ sensor: itemValue })
             }>
             <Picker.Item label="Suhu" value="temperature" />
-            {/* <Picker.Item label="Arus" value="current" /> */}
+            <Picker.Item label="Arus" value="current" />
 
           </Picker>
           <Button mode="contained" color="#900" onPress={this.saringHandler}>Tampilkan</Button>

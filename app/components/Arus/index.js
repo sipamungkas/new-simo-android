@@ -17,7 +17,7 @@ formatDate = (date) => {
   return [year, month, day].join('-');
 }
 
-export default class Suhu extends Component {
+export default class Arus extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +69,7 @@ export default class Suhu extends Component {
           .map((key) => snapshot.val()[key]);
         referenceToOldestTime = snapshot.val()[arrayOfKeys[arrayOfKeys.length - 1]].time;
         this.setState({ data: results, timeReference: referenceToOldestTime, loading: false })
-      }).catch((error) => alert(error.code));
+      }).catch((error) => alert("Silakan periksa tanggal yang anda masukkan dan koneksi anda!"));
 
   }
 
@@ -119,7 +119,6 @@ export default class Suhu extends Component {
               keyExtractor={(item, index) => index.toString()}
             />}
         </View>
-
       </View>
     );
   }

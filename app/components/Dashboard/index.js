@@ -40,15 +40,15 @@ export default class Dashboard extends Component {
           <Card style={{ marginVertical: 3 }}
             onPress={() => this.props.navigation.navigate("Suhu")}>
             <Card.Content>
-              <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan {parseInt(this.state.temperature.value) > 30 ? <Icon name="exclamation-triangle" color="red" /> : null}</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.temperature.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.temperature.value} °C {parseInt(this.state.temperature.value) > 31 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}</Text>
+              <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan {parseInt(this.state.temperature.value) > 32 ? <Icon name="exclamation-triangle" color="red" /> : null}</Title>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.temperature.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.temperature.value} °C {parseInt(this.state.temperature.value) > 32 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}</Text>
             </Card.Content>
           </Card>
           <Card style={{ marginVertical: 3 }}
             onPress={() => this.props.navigation.navigate("Asap")}>
             <Card.Content>
               <Title> <Icon name="fire" size={20} color="#900" /> Asap</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.smoke.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.smoke.value > 403 ? "Bahaya" : "Normal"} </Text>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.smoke.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.smoke.value > 430 ? "Bahaya" : "Normal"} </Text>
 
             </Card.Content>
           </Card>
@@ -56,21 +56,21 @@ export default class Dashboard extends Component {
             onPress={() => this.props.navigation.navigate("Cahaya")}>
             <Card.Content>
               <Title> <Icon name="lightbulb" size={20} color="#900" /> Cahaya</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.ldr.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.ldr.value}</Text>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.ldr.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.ldr.value > 758 ? "Hidup" : "Mati"}</Text>
             </Card.Content>
           </Card>
           <Card style={{ marginVertical: 3 }}
             onPress={() => this.props.navigation.navigate("Aktifitas")}>
             <Card.Content>
               <Title> <Icon name="running" size={20} color="#900" /> Aktifitas</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.pir.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.pir.value} {this.state.pir.value == "Terdapat Aktifitas" ? <Icon size={20} name="exclamation-triangle" color="yellow" /> : null}</Text>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.pir.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.pir.value == 1 ? "Terdapat Aktifitas" : "Tidak Terdapat Aktifitas"} {this.state.pir.value == 1 ? <Icon size={20} name="exclamation-triangle" color="yellow" /> : null}</Text>
             </Card.Content>
           </Card>
           <Card style={{ marginVertical: 3 }}
             onPress={() => this.props.navigation.navigate("Cahaya")}>
             <Card.Content>
               <Title> <Icon name="bolt" size={20} color="#900" /> Arus</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.current.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.current.value > 507 ? "Aktif" : "Tidak Aktif"}</Text>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.current.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.current.value} A</Text>
             </Card.Content>
           </Card>
         </ScrollView>

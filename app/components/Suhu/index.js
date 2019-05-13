@@ -69,7 +69,7 @@ export default class Suhu extends Component {
           .map((key) => snapshot.val()[key]);
         referenceToOldestTime = snapshot.val()[arrayOfKeys[arrayOfKeys.length - 1]].time;
         this.setState({ data: results, timeReference: referenceToOldestTime, loading: false })
-      }).catch((error) => alert(error.code));
+      }).catch((error) => alert("Silakan periksa tanggal yang anda masukkan dan koneksi anda!"));
 
   }
 
@@ -112,7 +112,7 @@ export default class Suhu extends Component {
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginLeft: 5, marginRight: 5 }}>
                       <View style={{ flex: 1, flexDirection: 'column' }}><Text style={{ alignSelf: "flex-start" }}>Tanggal {item.time}</Text>
                         <Text style={{ alignSelf: "flex-start" }}>Suhu: {item.value} °C</Text></View>
-                      {parseInt(item.value) > 30 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}
+                      {parseInt(item.value) > 32 ? <Icon size={20} name="exclamation-triangle" color="red" /> : null}
                     </View>
                   </Card.Content>
                 </Card>

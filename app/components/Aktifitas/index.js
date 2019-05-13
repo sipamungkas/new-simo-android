@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Button, Card, Divider } from 'react-native-paper';
@@ -69,7 +69,7 @@ export default class Aktifitas extends Component {
           .map((key) => snapshot.val()[key]);
         referenceToOldestTime = snapshot.val()[arrayOfKeys[arrayOfKeys.length - 1]].time;
         this.setState({ data: results, timeReference: referenceToOldestTime, loading: false })
-      }).catch((error) => alert(error.code));
+      }).catch((error) => Alert.alert("Error!", "Silakan periksa tanggal yang anda masukkan dan koneksi anda!"));
 
   }
 
@@ -110,8 +110,8 @@ export default class Aktifitas extends Component {
                   <Card.Content style={{ flex: 1, marginVertical: 3 }}>
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginLeft: 5, marginRight: 5 }}>
                       <View style={{ flex: 1, flexDirection: 'column' }}><Text style={{ alignSelf: "flex-start" }}>Tanggal {item.time}</Text>
-                        <Text style={{ alignSelf: "flex-start" }}>Kondisi: {item.value}</Text></View>
-                      {item.value == "Terdapat Aktifitas" ? <Icon size={20} name="exclamation-triangle" color="yellow" /> : null}
+                        <Text style={{ alignSelf: "flex-start" }}>Kondisi: {item.value == 1 ? "Terdapat Aktifitas" : "Tidak Terdapat Aktifitas"}</Text></View>
+                      {item.value == 1 ? <Icon size={20} name="exclamation-triangle" color="yellow" /> : null}
                     </View>
                   </Card.Content>
                 </Card>

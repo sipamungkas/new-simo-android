@@ -69,7 +69,7 @@ export default class Asap extends Component {
           .map((key) => snapshot.val()[key]);
         referenceToOldestTime = snapshot.val()[arrayOfKeys[arrayOfKeys.length - 1]].time;
         this.setState({ data: results, timeReference: referenceToOldestTime, loading: false })
-      }).catch((error) => alert(error.code));
+      }).catch((error) => alert("Silakan periksa tanggal yang anda masukkan dan koneksi anda!"));
 
   }
 
