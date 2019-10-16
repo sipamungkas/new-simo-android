@@ -38,6 +38,13 @@ export default class Dashboard extends Component {
             </Card.Content>
           </Card>
           <Card style={{ marginVertical: 3 }}
+            onPress={() => this.props.navigation.navigate("Cahaya")}>
+            <Card.Content>
+              <Title> <Icon name="bolt" size={20} color="#900" /> Arus</Title>
+              <Text style={{ alignSelf: 'flex-end' }}>{this.state.current.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.current.value} A</Text>
+            </Card.Content>
+          </Card>
+          <Card style={{ marginVertical: 3 }}
             onPress={() => this.props.navigation.navigate("Suhu")}>
             <Card.Content>
               <Title><Icon name="temperature-low" size={20} color="#900" /> Suhu Ruangan {parseInt(this.state.temperature.value) > 32 ? <Icon name="exclamation-triangle" color="red" /> : null}</Title>
@@ -66,13 +73,7 @@ export default class Dashboard extends Component {
               <Text style={{ alignSelf: 'flex-end' }}>{this.state.pir.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.pir.value == 1 ? "Terdapat Aktifitas" : "Tidak Terdapat Aktifitas"} {this.state.pir.value == 1 ? <Icon size={20} name="exclamation-triangle" color="yellow" /> : null}</Text>
             </Card.Content>
           </Card>
-          <Card style={{ marginVertical: 3 }}
-            onPress={() => this.props.navigation.navigate("Cahaya")}>
-            <Card.Content>
-              <Title> <Icon name="bolt" size={20} color="#900" /> Arus</Title>
-              <Text style={{ alignSelf: 'flex-end' }}>{this.state.current.time}</Text><Text style={{ alignSelf: 'flex-start' }}>{this.state.current.value} A</Text>
-            </Card.Content>
-          </Card>
+          
         </ScrollView>
       </View>
     );
